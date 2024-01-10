@@ -1,0 +1,10 @@
+.saveable {
+    background-color: gray;
+}
+.modified {
+    color: green;
+}
+
+.special {
+    text-decoration: underline;
+}

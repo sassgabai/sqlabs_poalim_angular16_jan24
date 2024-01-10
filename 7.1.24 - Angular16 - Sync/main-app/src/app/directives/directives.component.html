@@ -1,0 +1,40 @@
+<!-- VIEW -->
+<p>directives works!</p>
+
+<button (click)="toggleActive()">Toggle</button>
+
+<div *ngIf="isActive">
+    <p>
+        This is a paragraph.
+        I woule like to leave this paragraph as it is.
+    </p>
+</div>
+
+<hr/>
+
+<div *ngFor="let item of items; let i=index">
+    {{i + 1}} - {{item.name}}
+</div>
+
+<hr/>
+
+<select title="Choose item" [(ngModel)]="currentItem">
+    <ng-container *ngFor="let item of items">
+        <ng-container *ngIf="item.rate > 3 ">
+            <option [ngValue]="item">{{item.name}} ({{item.rate}})</option>
+        </ng-container>
+    </ng-container>
+</select>
+
+<br/><br/>
+
+<hr/>
+
+<div [ngSwitch]="currentItem?.feature">
+    <p *ngSwitchCase="'extra'">extra</p>
+    <p *ngSwitchCase="'no-extra'">This is extra</p>
+    <p *ngSwitchCase="'future-extra'">future-extra</p>
+    <p *ngSwitchDefault>default extra</p>
+</div>
+   
+   
