@@ -1,0 +1,19 @@
+<div>
+    <h2>{{ newProduct.name }}</h2>
+    <div>
+        <div>
+            <label for="id_product_id">Name:</label>
+            <input id="id_product_id" [(ngModel)]="newProduct.id" placeholder="Enter a product ID"/>
+        </div>
+    <div>
+        <label for="id_product_name">Name:</label>
+        <input id="id_product_name" [(ngModel)]="newProduct.name" placeholder="Enter a product name"/>
+    </div>
+    <div>
+        <label for="id_product_price">Name:</label>
+        <input id="id_product_price" [(ngModel)]="newProduct.price" placeholder="Enter a product price"/>
+    </div>
+    <div>
+        <button (click)="saveNewProduct()">Save</button>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<h1>@Input and @Output</h1>
+
+<div>
+    Product: {{ productName }}
+</div>
+
+<br/><hr/><br/>
+
+<app-child1 [name]="parentName"></app-child1>
+
+<br/><hr/><br/>
+
+<app-child2 (myEmitter)="addNewProduct($event)"></app-child2>
+
+<br/><hr/><br/>
+
+<app-child3 [name]="parentName" (myEmitter)="addNewProduct($event)"></app-child3>

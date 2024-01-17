@@ -1,0 +1,24 @@
+<h2>Available products</h2>
+
+<!-- Action buttons -->
+<!-- NEW button -->
+<button (click)="onCreateNewProduct()">Add Product</button>
+
+
+<!-- List of products -->
+
+<ul>
+    <li *ngFor="let product of products" (click)="onSelect(product)">
+        {{ product.name }}
+    </li>
+</ul>
+
+<br/><hr/><br/>
+
+<!-- Product details -->
+<app-product-details *ngIf="selectedProduct" [selectedProduct]="selectedProduct"></app-product-details>
+
+
+<!-- <app-product-new> -->
+<app-product-new *ngIf="isCreateProduct" (newProductEmitter)="onSaveNewProduct($event)"></app-product-new>
+<!-- SAVE button ==> @Output -->
