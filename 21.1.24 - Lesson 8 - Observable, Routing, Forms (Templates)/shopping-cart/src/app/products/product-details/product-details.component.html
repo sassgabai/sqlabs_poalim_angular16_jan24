@@ -1,0 +1,9 @@
+<div *ngIf="selectedProduct">
+    <h2>{{ selectedProduct.name }}</h2>
+    <div><span>ID:</span> {{ selectedProduct.id }}</div>
+    <div>
+        <label for="id_product_name">Name:</label>
+        <input id="id_product_name" [(ngModel)]="selectedProduct.name" placeholder="Enter a product name"/>
+    </div>
+    <div><span>Price:</span> {{ selectedProduct.price }}</div>
+</div>

@@ -1,0 +1,29 @@
+<div>
+    <div>
+        <h2>Template Form</h2>
+        <div class="container">
+
+            <h1>User Registration</h1>
+            <form (ngSubmit)="onSubmit(registrationForm.value)" #registrationForm="ngForm">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" #username="ngModel" minlength="2" maxlength="7" id="username" ngModel name="username" required>
+                    <div *ngIf="username && username.touched && username.invalid" class="alert alert-danger">
+                        <p *ngIf="username.errors?.['required']">Username Required!</p>
+                        <p *ngIf="username.errors?.['minlength']">Sorry! Short Username</p>
+                    </div>
+                </div>
+                <div>
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" ngModel name="email" required>
+                </div>
+                <button type="submit" [disabled]="!registrationForm.valid">Register</button>
+              </form>
+              
+        
+        </div>
+    </div>
+    <div>
+        <h2>Reactive Form</h2>
+    </div>
+</div>

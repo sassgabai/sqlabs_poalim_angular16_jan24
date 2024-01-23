@@ -1,0 +1,35 @@
+<div>
+    <h2>{{ newProduct.name }}</h2>
+    <table>
+        <tr>
+            <td>
+                <label for="id_product_id">ID:</label>
+            </td>
+            <td>
+                <input id="id_product_id" [(ngModel)]="newProduct.id" placeholder="Enter a product ID"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="id_product_name">Name:</label>
+            </td>
+            <td>
+                <input id="id_product_name" [(ngModel)]="newProduct.name" placeholder="Enter a product name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="id_product_price">Price:</label>
+            </td>
+            <td>
+                <input id="id_product_price" [(ngModel)]="newProduct.price" placeholder="Enter a product price"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button (click)="saveNewProduct()">Save</button>
+            </td>
+        </tr>
+    </table>
+    
+</div>

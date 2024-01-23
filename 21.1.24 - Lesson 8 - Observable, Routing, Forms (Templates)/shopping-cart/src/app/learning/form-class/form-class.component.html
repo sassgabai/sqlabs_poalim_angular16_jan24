@@ -1,0 +1,34 @@
+<p>form-class works!</p>
+
+<h2>Login</h2>
+<form (ngSubmit)="onSubmit(formData.value)" #formData="ngForm">
+    <table>
+        <tr>
+            <td>
+                <label for="email">Email</label>
+            </td>
+            <td>
+                <input type="email" #email="ngModel" id="email" name="email" required ngModel>
+                <div *ngIf="email.touched && email.invalid" class="alert alert-danger">
+                    <p *ngIf="email.errors?.['required']">Username Required!</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password">Password</label>
+            </td>
+            <td>
+                <input type="password" #password="ngModel" id="password" name="password" required ngModel>
+                <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+                    <p *ngIf="password.errors?.['required']">Password Required!</p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+</form>
