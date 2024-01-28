@@ -24,6 +24,8 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { MainComponent } from './learning/main/main.component';
 import { FormClassComponent } from './learning/form-class/form-class.component';
 import { ManageProductsComponent } from './products/manage-products/manage-products.component';
+import { ProductEditComponent } from './products/product-edit/product-edit.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -44,13 +46,15 @@ import { ManageProductsComponent } from './products/manage-products/manage-produ
     PagenotfoundComponent,
     MainComponent,
     FormClassComponent,
-    ManageProductsComponent
+    ManageProductsComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [provideRouter(routes)],
   bootstrap: [AppComponent]

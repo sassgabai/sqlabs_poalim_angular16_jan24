@@ -1,35 +1,40 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Product } from '../models/product';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { ApiProduct, Product } from '../models/product';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private productSubject: BehaviorSubject<Product[]>;
+  private static apiProductsURL: string = "https://fakestoreapi.com/products";
 
-  constructor() {
-    this.productSubject = new BehaviorSubject([
-        new Product(1, "Laptop", 800),
-        new Product(2, "Smartphone", 500),
-        new Product(3, "Tablet", 300),
-        new Product(4, "Headphones", 150),
-        new Product(5, "Keyboard", 100),
-        new Product(6, "Mouse", 50),
-        new Product(7, "Monitor", 200),
-        new Product(8, "External Hard Drive", 120),
-        new Product(9, "Smartwatch", 250),
-        new Product(10, "Bluetooth Speaker", 80)
-    ]);
+  constructor(private http: HttpClient) {
   }
 
-  getProducts(): Observable<Product[]> {
-    return this.productSubject.asObservable();
+  getProducts(): Observable<ApiProduct[]> {
+    // return this.productSubject.asObservable();
+    return this.http.get<ApiProduct[]>(ProductService.apiProductsURL).pipe(
+      map(apiProducts => apiProducts.map(apiProduct => new Product(apiProduct.id, apiProduct.title, apiProduct.price))));
   }
 
   addProduct(product: Product) {
-    this.productSubject.next([...this.productSubject.value, product]);
+    // this.productSubject.next([...this.productSubject.value, product]);
+  }
+
+  updateProduct(product: Product) {
+    // const newProdList: Product[] = this.productSubject.value.map(p => {
+    //   if (p.id === product.id) {
+    //     p.id = product.id;
+    //     p.name = product.name;
+    //     p.price = product.price;
+    //   }
+
+    //   return p;
+    // });
+
+    // this.productSubject.next([...newProdList]);
   }
 }
 

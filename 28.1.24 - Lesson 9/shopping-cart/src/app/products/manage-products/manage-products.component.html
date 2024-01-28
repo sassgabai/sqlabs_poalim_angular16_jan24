@@ -15,8 +15,10 @@
 
         <!-- List of products -->
         <ul>
-            <li *ngFor="let product of products" (click)="onSelect(product)">
+            <li *ngFor="let product of products">
                 {{ product.name }}
+
+                <button (click)="editProduct(product)">Edit</button>
             </li>
         </ul>
 
@@ -25,12 +27,16 @@
     <div>
 
         <!-- Product details -->
-        <app-product-details *ngIf="selectedProduct" [selectedProduct]="selectedProduct"></app-product-details>
+        <app-product-details *ngIf="selectedProduct && !isEditProduct" [selectedProduct]="selectedProduct"></app-product-details>
 
 
         <!-- <app-product-new> -->
         <app-product-new *ngIf="isCreateProduct" (newProductEmitter)="onSaveNewProduct($event)"></app-product-new>
         <!-- SAVE button ==> @Output -->
+
+
+        <app-product-edit *ngIf="isEditProduct" [editProduct]="selectedProduct" (updateProductEmitter)="onUpdateProduct($event)"></app-product-edit>
+
 
     </div>
 

@@ -9,7 +9,7 @@
                     <label for="id_product_id">ID:</label>
                 </td>
                 <td>
-                    <input id="id_product_id" formControlName="id" placeholder="Enter a product ID"/>
+                    <input type="number" id="id_product_id" formControlName="id" placeholder="Enter a product ID"/>
                 </td>
             </tr>
             <tr>
@@ -17,7 +17,7 @@
                     <label for="id_product_name">Name:</label>
                 </td>
                 <td>
-                    <input id="id_product_name" [formControl]="newProductForm.controls.name" placeholder="Enter a product name"/>
+                    <input type="text" id="id_product_name" [formControl]="newProductForm.controls.name" placeholder="Enter a product name"/>
                 </td>
             </tr>
             <tr>
@@ -25,12 +25,12 @@
                     <label for="id_product_price">Price:</label>
                 </td>
                 <td>
-                    <input id="id_product_price" [formControl]="newProductForm.controls.price" placeholder="Enter a product price"/>
+                    <input type="number" id="id_product_price" [formControl]="newProductForm.controls.price" placeholder="Enter a product price"/>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <button type="submit" [disabled]="!newProductForm.valid">Save</button>
+                    <button [disabled]="!newProductForm.valid" (click)="saveNewProduct()">Save</button>
                 </td>
             </tr>
         </table>

@@ -1,7 +1,7 @@
 <div *ngIf="selectedProduct">
     <h2>{{ selectedProduct.name }}</h2>
     <div><span>ID:</span> {{ selectedProduct.id }}</div>
-    <div><span>Price:</span> {{ selectedProduct.name }}</div>
+    <div><span>Name:</span> {{ selectedProduct.name }}</div>
     <div><span>Price:</span> {{ selectedProduct.price }}</div>
     <div class="buttons">
         <button *ngIf="!isProductInCart" (click)="addToCart(selectedProduct)">Add To Cart</button>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Product } from 'src/app/shared/models/product';
 
 @Component({
@@ -9,24 +9,37 @@ import { Product } from 'src/app/shared/models/product';
 })
 export class ProductNewComponent {
   @Output() newProductEmitter = new EventEmitter();
-  newProduct?: Product;
+
+  newProduct: Product;
   newProductForm = new FormGroup({
     id: new FormControl(null, [Validators.required]),
-    name: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]),
-    price: new FormControl(null, [Validators.required, Validators.min(0.01)])
+    name: new FormControl('', Product.standardValidators),
+    price: new FormControl(null, [Validators.required, Validators.min(0.01), ProductNewComponent.productPriceValidator]),
   })
-
-  constructor() {}
 
   onSubmit() {
     if (this.newProductForm.valid) {
       this.newProduct = new Product(
-        this.newProductForm.value.id!,
+        parseInt(this.newProductForm.value.id!),
         this.newProductForm.value.name!,
-        this.newProductForm.value.price!,
-      );
+        parseFloat(this.newProductForm.value.price!)
+      )
+    };
+  }
 
-      this.newProductEmitter.emit(this.newProduct);
+  constructor() {
+    this.newProduct = new Product();
+  }
+
+  saveNewProduct() {
+    this.newProductEmitter.emit(this.newProduct);
+  }
+
+  static productPriceValidator(control: AbstractControl): ValidationErrors | null {
+    if (control.value < 1000) {
+      return { 'productId': true };
     }
+    return null;
   }
 }
+

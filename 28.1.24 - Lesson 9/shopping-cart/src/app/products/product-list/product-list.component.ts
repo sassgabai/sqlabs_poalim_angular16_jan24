@@ -35,7 +35,6 @@ export class ProductListComponent
 
   ngOnDestroy(): void {
     this.productSubscription?.unsubscribe();
-    this.shoppingCartSubscription?.unsubscribe();
   }
 
   onSelect(product: Product) {
