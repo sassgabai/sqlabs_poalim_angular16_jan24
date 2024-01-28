@@ -1,0 +1,7 @@
+.flex {
+    display: flex;
+}
+
+.flex div:nth-child(1) {
+    flex-basis: 40%;
+}

@@ -1,0 +1,45 @@
+/* MAIN */
+.flex {
+    display: flex;
+}
+
+.flex div:nth-child(1) {
+    flex-basis: 40%;
+}
+
+
+/* PRODUCT LIST */
+.product-list {
+    width: 400px;
+}
+
+.product-line {
+    width: 100%;
+}
+
+.product-line div {
+    display: inline-block;
+    line-height: 1.5em;
+}
+
+.product-line div:nth-child(1) {
+    width: 50%;
+}
+
+.product-line div:nth-child(2) {
+    width: 10%;
+}
+
+.product-line div:nth-child(3) {
+    width: 40%;
+}
+
+
+/* SHOPPING CART */
+.title-shopping-cart span {
+    font-size: 1.5em;
+}
+
+.product-line-in-cart div {
+    text-decoration-line: line-through;
+}
