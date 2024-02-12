@@ -1,0 +1,75 @@
+import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ApiProduct, Product } from 'src/app/shared/models/product';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
+
+@Component({
+  selector: 'app-manage-products',
+  templateUrl: './manage-products.component.html',
+  styleUrls: ['./manage-products.component.css']
+})
+export class ManageProductsComponent {
+  protected products: Product[];
+  protected shoppingCartProducts?: number[];
+
+  private productSubscription?: Subscription;
+  private shoppingCartSubscription?: Subscription;
+
+  hoveredProduct?: Product;
+  selectedProduct?: Product | null;
+  isCreateProduct: boolean = false;
+  isEditProduct: boolean = false;
+
+  constructor(private productService: ProductService, private shoppingCartService: ShoppingCartService) {
+    this.products = [];
+  }
+
+  ngOnInit() {
+    this.productSubscription = this.productService.getProducts().subscribe(products => this.products = products);
+    this.shoppingCartSubscription = this.shoppingCartService.getProductsInCart().subscribe(
+      (products: number[]) => this.shoppingCartProducts = products
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.productSubscription?.unsubscribe();
+    this.shoppingCartSubscription?.unsubscribe();
+  }
+
+  onSelect(product: Product) {
+    this.isCreateProduct = this.isEditProduct = false;
+    this.selectedProduct = product;
+  }
+
+  onCreateNewProduct() {
+    this.isEditProduct = !(this.isCreateProduct = true);
+    this.selectedProduct = null;
+  }
+
+  onSaveNewProduct(product: Product) {
+    alert(`Added new product: ID(${product.id}), Name(${product.name})`);
+    this.isCreateProduct = false;
+  }
+
+  onUpdateProduct(product: Product) {
+    this.productService.updateProduct(product);
+    this.isEditProduct = false;
+    this.selectedProduct = null;
+  }
+
+  editProduct(product: Product) {
+    this.selectedProduct = product;
+    this.isEditProduct = true;
+  }
+
+  deleteProduct(product: Product) {
+
+  }
+
+  isProductInCart(productId: number): boolean {
+    return !!this.shoppingCartProducts?.find(p => p === productId);
+  }
+}
+
+

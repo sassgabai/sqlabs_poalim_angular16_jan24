@@ -1,0 +1,46 @@
+<h2>Manage Products</h2>
+
+<div class="flex">
+
+    <div>
+
+        <!-- Action buttons -->
+        <!-- NEW button -->
+        <button (click)="onCreateNewProduct()">Add Product</button>
+
+
+        <!-- Product stats -->
+        <app-stats *ngIf="products"></app-stats>
+
+
+        <!-- List of products -->
+        <ul>
+            <li *ngFor="let product of products" (mouseenter)="hoveredProduct = product">
+
+                <div [ngClass]="{'product-line': true}">
+                    <div>{{ product.name }}</div>
+                    <div>{{ product.price }}</div>
+                    <div *ngIf="hoveredProduct?.id === product.id">
+                        <button (click)="editProduct(product)">Edit</button>
+                        &nbsp;
+                        <button *ngIf="!isProductInCart(hoveredProduct?.id!)" (click)="deleteProduct(product)">Delete</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+    <div>
+
+
+        <!-- <app-product-new> -->
+        <app-product-new *ngIf="isCreateProduct" (newProductEmitter)="onSaveNewProduct($event)"></app-product-new>
+
+
+        <app-product-edit *ngIf="isEditProduct" [editProduct]="selectedProduct" (updateProductEmitter)="onUpdateProduct($event)"></app-product-edit>
+
+
+    </div>
+
+</div>
