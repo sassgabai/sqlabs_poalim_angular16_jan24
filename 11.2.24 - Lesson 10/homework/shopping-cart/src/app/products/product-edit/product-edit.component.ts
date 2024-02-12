@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/shared/models/product';
 
@@ -7,7 +7,7 @@ import { Product } from 'src/app/shared/models/product';
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.css']
 })
-export class ProductEditComponent implements OnInit, OnDestroy {
+export class ProductEditComponent implements OnDestroy {
   
   @Input() editProduct?: Product | null;
   @Output() updateProductEmitter = new EventEmitter();
@@ -19,12 +19,14 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   
   constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit(): void {
-    this.editProductForm?.setValue({
-      id: this.editProduct?.id,
-      name: this.editProduct?.name,
-      price: this.editProduct?.price
-    })
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['editProduct'] && this.editProduct) {
+      this.editProductForm?.setValue({
+        id: this.editProduct?.id,
+        name: this.editProduct?.name,
+        price: this.editProduct?.price
+      })
+    }
   }
 
   onSubmit() {

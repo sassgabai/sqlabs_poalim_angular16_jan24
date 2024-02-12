@@ -40,7 +40,7 @@ export class ManageProductsComponent {
   }
 
   onSaveNewProduct(product: Product) {
-    this.productService.addProduct(product);
+    alert(`New product created: ID - ${product.id}, Name = ${product.name}`);
     this.isCreateProduct = false;
   }
 

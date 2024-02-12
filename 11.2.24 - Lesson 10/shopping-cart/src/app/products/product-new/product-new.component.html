@@ -6,14 +6,6 @@
         <table>
             <tr>
                 <td>
-                    <label for="id_product_id">ID:</label>
-                </td>
-                <td>
-                    <input type="number" id="id_product_id" formControlName="id" placeholder="Enter a product ID"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <label for="id_product_name">Name:</label>
                 </td>
                 <td>
@@ -30,7 +22,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <button [disabled]="!newProductForm.valid" (click)="saveNewProduct()">Save</button>
+                    <button [disabled]="!newProductForm.valid">Save</button>
                 </td>
             </tr>
         </table>

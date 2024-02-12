@@ -20,7 +20,13 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['productId'] && this.productId) {
-      this.productService.getProductById(this.productId!).subscribe(p => this.selectedProduct = p);
+      this.productService.getProductById(this.productId!).subscribe({
+        next: p => this.selectedProduct = p,
+        error: err => {
+          console.error(err);
+          alert(err);
+        }
+      });
     }
   }
 

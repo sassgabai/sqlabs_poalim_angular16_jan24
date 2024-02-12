@@ -26,7 +26,11 @@ export class ProductService {
   }
 
   addProduct(product: Product) {
+    delete product.id;
+
     // this.productSubject.next([...this.productSubject.value, product]);
+    return this.http.post<ApiProduct>(ProductService.apiProductsURL, product).pipe(
+      map(data => new Product(data.id, data.title, data.price, data.image, 10)));
   }
 
   updateProduct(product: Product) {

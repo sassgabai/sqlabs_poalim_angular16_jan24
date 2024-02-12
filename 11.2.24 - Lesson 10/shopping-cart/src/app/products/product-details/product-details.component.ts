@@ -24,13 +24,6 @@ export class ProductDetailsComponent {
     }
   }
 
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if (changes['productId'] && this.productId) {
-  //     this.productService.getProductById(this.productId!).subscribe(p => this.selectedProduct = p);
-  //   }
-  // }
-
   addToCart(product: Product) {
     this.addToCartEmitter.emit(product);
   }

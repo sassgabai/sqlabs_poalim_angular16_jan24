@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { ApiProduct, Product } from '../models/product';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +16,15 @@ export class ProductService {
   getProducts(): Observable<ApiProduct[]> {
     // return this.productSubject.asObservable();
     return this.http.get<ApiProduct[]>(ProductService.apiProductsURL).pipe(
-      map(apiProducts => apiProducts.map(apiProduct => new Product(apiProduct.id, apiProduct.title, apiProduct.price))));
+      map(apiProducts => apiProducts.map(apiProduct => new Product(apiProduct.id, apiProduct.title, apiProduct.price))),
+      catchError(this.handleError)
+      );
   }
 
   getProductById(productID: number): Observable<Product> {
-    return this.http.get<any>(`${ProductService.apiProductsURL}/${productID}`).pipe(
-      map(data => new Product(data.id, data.title, data.price, data.image))
+    return this.http.get<any>(`${"xxx"}/${productID}`).pipe(
+      map(data => new Product(data.id, data.title, data.price, data.image)),
+      catchError(this.handleError)
     );
   }
 
@@ -46,6 +49,25 @@ export class ProductService {
     // });
 
     // this.productSubject.next([...newProdList]);
+  }
+
+  deleteProduct(productId: number) {
+
+  }
+
+  private handleError(error: any) {
+    // You can customize this method to parse the error as you need
+    let errorMessage = 'An unknown error occurred!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side or network error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // The backend returned an unsuccessful response code
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+
+    // Return an observable with a user-facing error message
+    return throwError(errorMessage);
   }
 }
 
