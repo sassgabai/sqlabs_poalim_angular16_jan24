@@ -19,7 +19,7 @@ export class ProductListComponent
 
   hoveredProduct?: Product;
   selectedProduct?: Product | false;
-  isCreateProduct: boolean = false;
+  isListView: boolean = true;
 
   constructor(private productService: ProductService, private shoppingCartService: ShoppingCartService) { }
 
@@ -38,7 +38,6 @@ export class ProductListComponent
   }
 
   onSelect(product: Product) {
-    this.isCreateProduct = false;
     this.selectedProduct = product;
   }
 
@@ -52,5 +51,9 @@ export class ProductListComponent
 
   isProductInCart(productId?: number): boolean {
     return !!this.shoppingCartProducts?.find(p => p === productId);
+  }
+
+  toggleView() {
+    this.isListView = !this.isListView;
   }
 }

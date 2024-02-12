@@ -16,13 +16,13 @@ export class ProductService {
   getProducts(): Observable<ApiProduct[]> {
     // return this.productSubject.asObservable();
     return this.http.get<ApiProduct[]>(ProductService.apiProductsURL).pipe(
-      map(apiProducts => apiProducts.map(apiProduct => new Product(apiProduct.id, apiProduct.title, apiProduct.price))),
+      map(apiProducts => apiProducts.map(apiProduct => new Product(apiProduct.id, apiProduct.title, apiProduct.price, apiProduct.image))),
       catchError(this.handleError)
       );
   }
 
   getProductById(productID: number): Observable<Product> {
-    return this.http.get<any>(`${"xxx"}/${productID}`).pipe(
+    return this.http.get<any>(`${ProductService.apiProductsURL}/${productID}`).pipe(
       map(data => new Product(data.id, data.title, data.price, data.image)),
       catchError(this.handleError)
     );
@@ -65,9 +65,10 @@ export class ProductService {
       // The backend returned an unsuccessful response code
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-
+    
+    console.error(errorMessage);
     // Return an observable with a user-facing error message
-    return throwError(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }
 

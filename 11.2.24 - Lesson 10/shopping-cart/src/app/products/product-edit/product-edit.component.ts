@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/shared/models/product';
+import { ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
   selector: 'app-product-edit',
@@ -9,7 +10,7 @@ import { Product } from 'src/app/shared/models/product';
 })
 export class ProductEditComponent implements OnDestroy {
   
-  @Input() editProduct?: Product | null;
+  @Input() productId?: number;
   @Output() updateProductEmitter = new EventEmitter();
   protected editProductForm: FormGroup = this.formBuilder.group({
     id: [, [Validators.required]],
@@ -17,25 +18,37 @@ export class ProductEditComponent implements OnDestroy {
     price: [, [Validators.required]]
   });
   
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private productService: ProductService) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['editProduct'] && this.editProduct) {
-      this.editProductForm?.setValue({
-        id: this.editProduct?.id,
-        name: this.editProduct?.name,
-        price: this.editProduct?.price
-      })
+    if (changes['productId'] && this.productId) {
+
+      // 1. Retrieve product information from the API
+      this.productService.getProductById(this.productId).subscribe(p => {
+
+        // 2. Update the EDIT FORM object with the data received  via the API
+        this.editProductForm?.setValue({
+          id: p.id,
+          name: p.name,
+          price: p.price
+        })
+      });
+      
     }
   }
 
   onSubmit() {
     if (this.editProductForm?.valid) {
-      this.editProduct!.id = parseInt(this.editProductForm.value.id!);
-      this.editProduct!.name = this.editProductForm?.value.name!;
-      this.editProduct!.price = parseFloat(this.editProductForm?.value.price!);
-      
-      this.updateProductEmitter.emit(this.editProduct);
+      const product = new Product(
+        parseInt(this.editProductForm.value.id!),
+        this.editProductForm?.value.name!,
+        parseFloat(this.editProductForm?.value.price!)
+      );
+
+      // Call the API
+      this.productService.updateProduct(product).subscribe(p => {
+        this.updateProductEmitter.emit(product);
+      })
     };
   }
 

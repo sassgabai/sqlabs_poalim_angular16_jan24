@@ -20,12 +20,15 @@ export class ProductListComponent
   hoveredProduct?: Product;
   selectedProduct?: Product | false;
   isCreateProduct: boolean = false;
+  isListView: boolean = true;
 
   constructor(private productService: ProductService, private shoppingCartService: ShoppingCartService) { }
 
   ngOnInit() {
     this.productSubscription = this.productService.getProducts().subscribe(
-      (products: Product[]) => this.products = products
+      (products: Product[]) => {
+          this.products = products.sort((a, b) => a.name!.localeCompare(b.name!));
+        }
     );
 
     this.shoppingCartSubscription = this.shoppingCartService.getProductsInCart().subscribe(
@@ -52,5 +55,9 @@ export class ProductListComponent
 
   isProductInCart(product: Product): boolean {
     return !!this.shoppingCartProducts?.find(p => p.id === product.id);
+  }
+
+  toggleView() {
+    this.isListView = !this.isListView;
   }
 }

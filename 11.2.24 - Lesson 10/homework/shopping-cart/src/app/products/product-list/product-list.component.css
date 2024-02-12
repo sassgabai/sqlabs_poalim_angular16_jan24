@@ -12,6 +12,23 @@
 }
 
 
+/* PRODUCT GALLERY */
+.product-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    width: 700px;
+}
+
+.product-gallery item {
+    padding: 20px;
+    flex: 1;
+}
+
+.product-gallery img {
+    width: 100px;
+}
+
+
 /* PRODUCT LIST */
 .product-list {
     width: 700px;

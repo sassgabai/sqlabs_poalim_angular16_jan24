@@ -23,7 +23,7 @@
                     <div *ngIf="hoveredProduct?.id === product.id">
                         <button (click)="editProduct(product)">Edit</button>
                         |
-                        <!-- <button (click)="">Delete</button> -->
+                        <button [disabled]="isProductInCart(product)" (click)="deleteProductById(hoveredProduct?.id!)">Delete</button>
                     </div>
                 </div>
             </li>
@@ -38,7 +38,7 @@
         <!-- SAVE button ==> @Output -->
 
 
-        <app-product-edit *ngIf="isEditProduct" [editProduct]="selectedProduct" (updateProductEmitter)="onUpdateProduct($event)"></app-product-edit>
+        <app-product-edit *ngIf="isEditProduct" [productId]="selectedProduct?.id" (updateProductEmitter)="onUpdateProduct($event)"></app-product-edit>
 
 
     </div>

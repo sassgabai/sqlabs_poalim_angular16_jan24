@@ -16,7 +16,7 @@ export class ProductService {
   getProducts(): Observable<ApiProduct[]> {
     // return this.productSubject.asObservable();
     return this.http.get<ApiProduct[]>(ProductService.apiProductsURL).pipe(
-      map(apiProducts => apiProducts.map(apiProduct => new Product(apiProduct.id, apiProduct.title, apiProduct.price))));
+      map(apiProducts => apiProducts.map(apiProduct => new Product(apiProduct.id, apiProduct.title, apiProduct.price, apiProduct.image))));
   }
 
   getProductById(productId: number): Observable<Product> {
@@ -36,17 +36,12 @@ export class ProductService {
   }
 
   updateProduct(product: Product) {
-    // const newProdList: Product[] = this.productSubject.value.map(p => {
-    //   if (p.id === product.id) {
-    //     p.id = product.id;
-    //     p.name = product.name;
-    //     p.price = product.price;
-    //   }
+    return this.http.put<ApiProduct>(`${ProductService.apiProductsURL}/${product.id}`, product).pipe(
+      map(data => new Product(data.id, data.title, data.price, data.image)));
+  }
 
-    //   return p;
-    // });
-
-    // this.productSubject.next([...newProdList]);
+  deleteProductById(productId: number) {
+    return this.http.delete<any>(`${ProductService.apiProductsURL}/${productId}`);
   }
 
   private handleError(error: any) {

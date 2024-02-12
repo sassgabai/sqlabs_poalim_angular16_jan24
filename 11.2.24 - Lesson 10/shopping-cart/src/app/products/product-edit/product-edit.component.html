@@ -2,14 +2,14 @@
 
     <form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
 
-        <h2>Editing '{{ editProduct?.name }}'</h2>
+        <h2>Editing '{{ editProductForm.controls['name'].value }}'</h2>
         <table>
             <tr>
                 <td>
                     <label for="id_product_id">ID:</label>
                 </td>
                 <td>
-                    <input type="number" id="id_product_id" formControlName="id" placeholder="Enter a product ID"/>
+                    {{ editProductForm.controls['id'].value }}
                 </td>
             </tr>
             <tr>
