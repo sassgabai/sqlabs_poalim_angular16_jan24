@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { ApiProduct, Product } from '../models/product';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,9 @@ export class ProductService {
   getProductById(productId: number): Observable<Product> {
     // return this.productSubject.asObservable();
     return this.http.get<ApiProduct>(`${ProductService.apiProductsURL}/${productId}`).pipe(
-      map(apiProduct => new Product(apiProduct.id, apiProduct.title, apiProduct.price, apiProduct.image, 10)));
+      map(apiProduct => new Product(apiProduct.id, apiProduct.title, apiProduct.price, apiProduct.image, 10)),
+      catchError(this.handleError)
+    );
   }
 
   addProduct(product: Product) {
@@ -45,6 +47,22 @@ export class ProductService {
     // });
 
     // this.productSubject.next([...newProdList]);
+  }
+
+  private handleError(error: any) {
+    // You can customize this method to parse the error as you need
+    let errorMessage = 'An unknown error occurred!';
+
+    if (error.error instanceof ErrorEvent) {
+      // Client-side or network error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // The backend returned an unsuccessful response code
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+
+    // Return an observable with a user-facing error message
+    return throwError(() => new Error(errorMessage));
   }
 }
 

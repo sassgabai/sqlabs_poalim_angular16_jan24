@@ -20,7 +20,13 @@ export class ProductDetailsComponent {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['productId'] && this.productId) {
       // Perform API call through service
-      this.productService.getProductById(this.productId).subscribe(p => this.selectedProduct = p);
+      this.productService.getProductById(this.productId).subscribe({
+        next: p => this.selectedProduct = p,
+        error: e => {
+          console.error(e);
+          alert(e);
+        }
+      });
     }
   }
 
