@@ -1,0 +1,43 @@
+<div>
+
+    <form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
+
+        <h2>Editing '{{ editProductForm.controls['name'].value }}'</h2>
+        <table>
+            <tr>
+                <td>
+                    <label for="id_product_id">ID:</label>
+                </td>
+                <td>
+                    {{ editProductForm.controls['id'].value }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="name">Name:</label>
+                </td>
+                <td>
+                    <input type="text" id="name" formControlName="name" placeholder="Enter a product name"/>
+                    <!-- <div *ngIf="editProductForm.controls.name.invalid && (editProductForm.controls.name.dirty || editProductForm.controls.name.touched)">
+                        <small *ngIf="editProductForm.controls.name.errors?.required">Email is required.</small>
+                    </div> -->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="id_product_price">Price:</label>
+                </td>
+                <td>
+                    <input type="number" id="id_product_price" formControlName="price" placeholder="Enter a product price"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit" [disabled]="!editProductForm.valid">Update</button>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+    
+</div>

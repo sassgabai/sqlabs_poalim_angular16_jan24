@@ -1,0 +1,32 @@
+<div>
+
+    <form [formGroup]="newProductForm" (ngSubmit)="onSubmit()">
+
+        <h2>Add New Product</h2>
+        <table>
+            <tr>
+                <td>
+                    <label for="id_product_name">Name:</label>
+                </td>
+                <td>
+                    <input type="text" id="id_product_name" [formControl]="newProductForm.controls.name" placeholder="Enter a product name"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="id_product_price">Price:</label>
+                </td>
+                <td>
+                    <input type="number" id="id_product_price" [formControl]="newProductForm.controls.price" placeholder="Enter a product price"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button [disabled]="!newProductForm.valid">Save</button>
+                </td>
+            </tr>
+        </table>
+
+    </form>
+    
+</div>

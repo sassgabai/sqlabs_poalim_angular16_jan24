@@ -1,0 +1,16 @@
+<p>plus-minus works!</p>
+
+<div>
+    <app-plus></app-plus>
+    <app-minus></app-minus>
+    <p>
+      {{ this.counterService.counter }}
+    </p>
+    <div>
+      <button (click)="getRandomNumber()">Increment by random number (1-10)</button>
+    </div>  
+    <div>
+        {{ this.randomNumber }}
+    </div>
+</div>
+   
