@@ -12,7 +12,14 @@
     <!-- Product stats -->
     <app-stats *ngIf="products"></app-stats>
 
-    <button (click)="toggleView()">Toggle View</button>
+    <button
+      mat-raised-button
+      color="primary"
+      style="color: blue"
+      (click)="toggleView()"
+    >
+      Toggle View
+    </button>
 
     <div class="list-view" *ngIf="isListView">
       <table
@@ -44,12 +51,18 @@
           <td mat-cell *matCellDef="let product">
             <ng-container *ngIf="hoveredProduct?.id === product.id">
               <button
+                mat-flat-button
+                color="accent"
+                style="color: blue"
                 *ngIf="!isProductInCart(product)"
                 (click)="addToCart(product)"
               >
                 Add To Cart
               </button>
               <button
+                mat-flat-button
+                color="accent"
+                style="color: blue"
                 *ngIf="isProductInCart(product)"
                 (click)="removeFromCart(product)"
               >
@@ -72,14 +85,14 @@
     <div *ngIf="!isListView" class="product-gallery">
       <!-- Gallery of products -->
 
-      <div
+      <!-- <div
         class="product-item"
         *ngFor="let product of products"
         (click)="onSelect(product)"
         (mouseenter)="hoveredProduct = product"
       >
         <img [src]="product.image" alt="{{ product.name }}" />
-      </div>
+      </div> -->
     </div>
   </div>
 

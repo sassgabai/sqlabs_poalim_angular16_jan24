@@ -26,6 +26,9 @@ import { FormClassComponent } from './learning/form-class/form-class.component';
 import { ManageProductsComponent } from './products/manage-products/manage-products.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 
 // Material Design Import
 import { MatTableModule } from '@angular/material/table';
@@ -59,6 +62,9 @@ import { MatTableModule } from '@angular/material/table';
     ReactiveFormsModule,
     HttpClientModule,
     MatTableModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
   ],
   providers: [provideRouter(routes)],
   bootstrap: [AppComponent],

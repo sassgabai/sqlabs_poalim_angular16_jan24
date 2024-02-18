@@ -50,11 +50,11 @@
   font-size: 1.5em;
 }
 
-.product-line-in-cart div {
+.product-line-in-cart {
   text-decoration-line: line-through;
 }
 
-/* MUI */
+/* MUI - table */
 .demo-table {
   width: 100%;
 }
@@ -68,7 +68,7 @@
 }
 
 .mat-column-name {
-  padding-left: 400px;
+  padding-left: 200px;
   font-size: 14px;
   text-align: left;
 }
@@ -87,5 +87,34 @@
 }
 
 .list-view {
-  margin: 15px;
+  margin: 5px;
+}
+
+/*MUI - buttons*/
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+button {
+  margin: 8px 8px 8px 0;
+  color: blue;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
 }
