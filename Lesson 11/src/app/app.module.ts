@@ -27,6 +27,9 @@ import { ManageProductsComponent } from './products/manage-products/manage-produ
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
+// Material Design Import
+import { MatTableModule } from '@angular/material/table';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,16 +50,17 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     MainComponent,
     FormClassComponent,
     ManageProductsComponent,
-    ProductEditComponent
+    ProductEditComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule,
   ],
   providers: [provideRouter(routes)],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

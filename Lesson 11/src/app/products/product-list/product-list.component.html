@@ -1,60 +1,96 @@
 <div class="flex">
-
-    <div><h2>My Supermarket</h2></div>
-    <div>
-        <h3 class="title-shopping-cart">Shopping Cart <span>({{ shoppingCartProducts?.length }})</span></h3>
-    </div>
-
+  <div><h2>My Supermarket</h2></div>
+  <div>
+    <h3 class="title-shopping-cart">
+      Shopping Cart <span>({{ shoppingCartProducts?.length }})</span>
+    </h3>
+  </div>
 </div>
 
 <div class="flex">
+  <div>
+    <!-- Product stats -->
+    <app-stats *ngIf="products"></app-stats>
 
-    <div>
+    <button (click)="toggleView()">Toggle View</button>
 
-        <!-- Product stats -->
-        <app-stats *ngIf="products"></app-stats>
+    <div class="list-view" *ngIf="isListView">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8 demo-table"
+      >
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let product">{{ product.id }}</td>
+        </ng-container>
 
-        <button (click)="toggleView()">Toggle View</button>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let product">{{ product.name }}</td>
+        </ng-container>
 
+        <!-- Weight Column -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>Price</th>
+          <td mat-cell *matCellDef="let product">{{ product.price }}</td>
+        </ng-container>
 
-        <div *ngIf="isListView">
-            <!-- List of products -->
-            <ul class="product-list">
-                <li *ngFor="let product of products" (click)="onSelect(product)" (mouseenter)="hoveredProduct = product">
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let product">
+            <ng-container *ngIf="hoveredProduct?.id === product.id">
+              <button
+                *ngIf="!isProductInCart(product)"
+                (click)="addToCart(product)"
+              >
+                Add To Cart
+              </button>
+              <button
+                *ngIf="isProductInCart(product)"
+                (click)="removeFromCart(product)"
+              >
+                Remove From Cart
+              </button>
+            </ng-container>
+          </td>
+        </ng-container>
 
-                    <div [ngClass]="{'product-line': true, 'product-line-in-cart': isProductInCart(product)}">
-                        <div>{{ product.name }}</div>
-                        <div>{{ product.price }}</div>
-                        <div *ngIf="hoveredProduct?.id === product.id">
-                            <button *ngIf="!isProductInCart(product)" (click)="addToCart(product)">Add To Cart</button>
-                            <button *ngIf="isProductInCart(product)" (click)="removeFromCart(product)">Remove From Cart</button>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-        <div *ngIf="!isListView" class="product-gallery">
-            <!-- Gallery of products -->
-            
-            <div class="product-item" *ngFor="let product of products" (click)="onSelect(product)" (mouseenter)="hoveredProduct = product">
-                <img [src]="product.image" alt="{{ product.name }}">
-            </div>
-
-        </div>
-
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let product; columns: displayedColumns"
+          (click)="onSelect(product)"
+          (mouseenter)="hoveredProduct = product"
+        ></tr>
+      </table>
     </div>
 
-    <div>
+    <div *ngIf="!isListView" class="product-gallery">
+      <!-- Gallery of products -->
 
-        <!-- Product details -->
-        <app-product-details
-            *ngIf="selectedProduct"
-            [productId]="selectedProduct.id"
-            [isProductInCart]="isProductInCart(selectedProduct)"
-            (addToCartEmitter)="addToCart($event)"
-            (removeFromCartEmitter)="removeFromCart($event)"></app-product-details>
-
+      <div
+        class="product-item"
+        *ngFor="let product of products"
+        (click)="onSelect(product)"
+        (mouseenter)="hoveredProduct = product"
+      >
+        <img [src]="product.image" alt="{{ product.name }}" />
+      </div>
     </div>
+  </div>
 
+  <div>
+    <!-- Product details -->
+    <app-product-details
+      *ngIf="selectedProduct"
+      [productId]="selectedProduct.id"
+      [isProductInCart]="isProductInCart(selectedProduct)"
+      (addToCartEmitter)="addToCart($event)"
+      (removeFromCartEmitter)="removeFromCart($event)"
+    ></app-product-details>
+  </div>
 </div>

@@ -7,7 +7,7 @@ import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.servi
 @Component({
   selector: 'app-manage-products',
   templateUrl: './manage-products.component.html',
-  styleUrls: ['./manage-products.component.css']
+  styleUrls: ['./manage-products.component.css'],
 })
 export class ManageProductsComponent {
   protected products: Product[];
@@ -21,24 +21,30 @@ export class ManageProductsComponent {
   isCreateProduct: boolean = false;
   isEditProduct: boolean = false;
 
-  constructor(private productService: ProductService, private shoppingCartService: ShoppingCartService) {
+  constructor(
+    private productService: ProductService,
+    private shoppingCartService: ShoppingCartService
+  ) {
     this.products = [];
   }
 
   ngOnInit() {
-    this.productSubscription = this.productService.getProducts().subscribe(
-      (products: Product[]) => {
+    this.productSubscription = this.productService
+      .getProducts()
+      .subscribe((products: Product[]) => {
         this.products = products.sort((a, b) => a.name!.localeCompare(b.name!));
       });
 
-    this.shoppingCartSubscription = this.shoppingCartService.getProductsInCart().subscribe(
-      (products: Product[]) => this.shoppingCartProducts = products
-    );
+    this.shoppingCartSubscription = this.shoppingCartService
+      .getProductsInCart()
+      .subscribe(
+        (products: Product[]) => (this.shoppingCartProducts = products)
+      );
   }
 
   ngOnDestroy(): void {
     this.productSubscription?.unsubscribe();
-    this.shoppingCartSubscription?.unsubscribe()
+    this.shoppingCartSubscription?.unsubscribe();
   }
 
   onSelect(product: Product) {
@@ -72,8 +78,6 @@ export class ManageProductsComponent {
   }
 
   isProductInCart(product: Product): boolean {
-    return !!this.shoppingCartProducts?.find(p => p.id === product.id);
+    return !!this.shoppingCartProducts?.find((p) => p.id === product.id);
   }
 }
-
-
